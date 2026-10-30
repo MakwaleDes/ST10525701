@@ -1,0 +1,1039 @@
+/* =========================================================================
+   DES-LUX PLAY — "Where Luxury Meets Imagination"
+   Stylesheet
+   -------------------------------------------------------------------------
+   Design concept: a hand-stitched, velvet-lined toy box. Deep plum and
+   forest grounds a jewel-toned palette, warm gold stands in for gilt
+   thread, and every photograph, form and card sits inside a dashed
+   "stitched" frame with a hard offset shadow — a nod to fabric swatches
+   and gift tags rather than the generic soft-grey SaaS card.
+
+   Contents
+   1. Fonts & tokens
+   2. Reset & base
+   3. Header
+   4. Navigation
+   5. Layout shell (main + aside)
+   6. Sections — hero, image/text pairs, text-only
+   7. Framed media (images & map embeds)
+   8. Buttons & links
+   9. Forms
+   10. Aside cards
+   11. Footer
+   12. Responsive
+   13. Accessibility & motion
+   14. Part 3 additions: interactive elements, catalogue, forms, map
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   1. Fonts & tokens
+   ------------------------------------------------------------------------- */
+/* The Google Fonts stylesheet is loaded with <link> in each page's <head>
+   (with preconnect). An @import here made the browser wait for this file
+   before it even began fetching the fonts. */
+
+:root{
+  /* colour */
+  --plum-deep:   #2B1A32;
+  --plum-mid:    #4A2E52;
+  --forest:      #1E4636;
+  --forest-deep: #143026;
+  --gold:        #C6952F;
+  --gold-light:  #E7C57A;
+  --gold-dark:   #8A6410;   /* gold text on ivory: 5:1 contrast */
+  --blush:       #E3A6AE;
+  --ivory:       #FBF5EC;
+  --ivory-dim:   #F2E9D8;
+  --ink:         #271A2C;
+
+  /* type */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* rhythm */
+  --content-max: 1180px;
+  --radius: 4px;
+  color-scheme: light;
+}
+
+/* -------------------------------------------------------------------------
+   2. Reset & base
+   ------------------------------------------------------------------------- */
+*, *::before, *::after{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background-color: var(--ivory);
+  /* faint woven-fabric texture */
+  background-image:
+    repeating-linear-gradient(135deg, rgba(198,149,47,0.05) 0px, rgba(198,149,47,0.05) 1px, transparent 1px, transparent 13px);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img{ max-width: 100%; height: auto; display: block; }
+h1, h2, h3, h4{
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 0.6em;
+  color: var(--plum-deep);
+}
+/* Heading scale. Every page has exactly one <h1> (the page title), <h2> for
+   sections and <h3> for small headings, so the outline is correct for
+   search engines and screen readers. */
+h1{ font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.7rem); }
+h2{ font-size: clamp(1.3rem, 1.15rem + 0.7vw, 1.7rem); }
+h3{ font-size: 1.05rem; letter-spacing: 0.01em; }
+p{ margin: 0 0 1em; max-width: 62ch; }
+em{ font-family: var(--font-display); font-style: italic; color: var(--gold-dark); }
+strong{ color: var(--plum-mid); }
+a{ color: var(--forest); }
+::selection{ background: var(--gold); color: var(--ivory); }
+
+/* Skip link — hidden until a keyboard user tabs to it */
+.skip-link{
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: var(--gold);
+  color: var(--plum-deep);
+  font-weight: 700;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 8px 0;
+  text-decoration: none;
+}
+.skip-link:focus{ left: 0; }
+
+/* -------------------------------------------------------------------------
+   3. Header
+   ------------------------------------------------------------------------- */
+header{
+  background: linear-gradient(160deg, var(--plum-deep), var(--plum-mid));
+  padding: 2.75rem 1.5rem 2rem;
+  text-align: center;
+  position: relative;
+}
+header::after{
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 3px;
+  background-image: repeating-linear-gradient(90deg, var(--gold) 0 10px, transparent 10px 20px);
+}
+header > div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+header a{ display: block; }
+header img{
+  width: 200px;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));
+}
+header .site-title{
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--ivory);
+  font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.6rem);
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* -------------------------------------------------------------------------
+   4. Navigation
+   ------------------------------------------------------------------------- */
+nav{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--ivory);
+  border-bottom: 2px solid var(--gold);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem clamp(1rem, 4vw, 3rem);
+}
+nav ul{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.9rem, 2vw, 1.9rem);
+  margin: 0;
+  padding: 0;
+}
+nav a{
+  text-decoration: none;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.03em;
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+nav a::after{
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-image: repeating-linear-gradient(90deg, var(--gold) 0 4px, transparent 4px 8px);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+nav a:hover::after,
+nav a:focus-visible::after{ transform: scaleX(1); }
+
+/* The page you are currently on */
+nav a[aria-current="page"]{ color: var(--forest); }
+nav a[aria-current="page"]::after{
+  transform: scaleX(1);
+  background-image: none;
+  background-color: var(--gold);
+}
+
+nav > .site-search{ display: flex; gap: 0.5rem; max-width: none; }
+nav input[type="search"]{
+  border: 1px solid var(--plum-mid);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-body);
+  background: var(--ivory-dim);
+  min-width: 10rem;
+}
+nav button{
+  background: transparent;
+  color: var(--forest);
+  border: 1.5px solid var(--gold);
+  padding: 0.5rem 1.1rem;
+  font-weight: 600;
+}
+nav button:hover{ background: var(--gold); color: var(--ivory); }
+
+/* -------------------------------------------------------------------------
+   5. Layout shell — the wrapping div around <main> and <aside>
+   ------------------------------------------------------------------------- */
+.layout{
+  max-width: var(--content-max);
+  margin: 0 auto;
+  padding: clamp(1.25rem, 3vw, 2.5rem) clamp(1.25rem, 4vw, 2.5rem) 3rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+main{ min-width: 0; }
+aside{ position: sticky; top: 5.5rem; }
+
+/* -------------------------------------------------------------------------
+   6. Sections
+   ------------------------------------------------------------------------- */
+main section{
+  padding: 2.75rem 0;
+  border-bottom: 2px dashed var(--gold-light);
+}
+main section:last-of-type{ border-bottom: none; padding-bottom: 0; }
+
+/* Image/text pairs become a two-column, alternating layout */
+main section:has(img){
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+}
+main section:has(img):nth-of-type(even) > div:first-child{ order: 2; }
+
+/* Text-only sections read as centred, quoted statements */
+main section:not(:has(img)):not(:has(form)):not(:has(iframe)){
+  text-align: center;
+}
+main section:not(:has(img)):not(:has(form)):not(:has(iframe)) > *{
+  max-width: 58ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+main section:not(:has(img)):not(:has(form)):not(:has(iframe)) p{
+  font-size: 1.08rem;
+  color: var(--plum-mid);
+}
+
+/* The very first section on every page acts as the page's banner */
+main > section:first-of-type{
+  position: relative;
+  background: linear-gradient(150deg, var(--plum-deep), var(--forest-deep));
+  color: var(--ivory);
+  border-radius: 14px;
+  padding: clamp(2.25rem, 4vw, 3.5rem);
+  margin-top: 0.5rem;
+  border-bottom: none;
+  box-shadow: 0 24px 40px -24px rgba(20, 12, 24, 0.55);
+}
+main > section:first-of-type h1{ color: var(--gold-light); }
+main > section:first-of-type p{ color: var(--ivory); opacity: 0.88; }
+main > section:first-of-type:not(:has(img)){ text-align: center; }
+main > section:first-of-type:not(:has(img)) > *{
+  max-width: 60ch; margin-left: auto; margin-right: auto;
+}
+main > section:first-of-type:not(:has(img)) p{ color: var(--ivory); }
+
+/* Form-holding sections stay a single column */
+main section:has(form){ display: block; }
+
+/* Map / contact-detail sections keep an even split without the zig-zag flip */
+main section:has(iframe){
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(2rem, 4vw, 3rem);
+  align-items: start;
+}
+main section:has(iframe) > div:first-child{ order: 0; }
+main section:has(iframe) address{
+  font-style: normal;
+  line-height: 1.7;
+}
+
+/* -------------------------------------------------------------------------
+   7. Framed media — photographs and map embeds share a stitched mat
+   ------------------------------------------------------------------------- */
+main section > div:has(> img),
+main section > div:has(> iframe){
+  background: var(--ivory);
+  border: 2px dashed var(--gold);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: 9px 9px 0 var(--forest);
+}
+main section:nth-of-type(even) > div:has(> img),
+main section:nth-of-type(even) > div:has(> iframe){
+  box-shadow: 9px 9px 0 var(--blush);
+}
+main > section:first-of-type > div:has(> img){
+  box-shadow: 9px 9px 0 var(--gold);
+  border-color: var(--gold-light);
+}
+main section img,
+main section iframe{
+  border-radius: 2px;
+  width: 100%;
+}
+/* Maps are sized here rather than with width/height attributes */
+main section iframe{
+  display: block;
+  width: 100%;
+  height: 250px;
+  border: 0;
+}
+
+/* -------------------------------------------------------------------------
+   8. Buttons & links
+   ------------------------------------------------------------------------- */
+/* Genuine calls-to-action: a bare <a> sitting directly in a content div */
+main section > div > a,
+aside > div > a{
+  display: inline-block;
+  margin-top: 0.4rem;
+  padding: 0.85rem 1.9rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--plum-deep);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 18px -8px rgba(198,149,47,0.65);
+}
+main section > div > a:hover,
+main section > div > a:focus-visible,
+aside > div > a:hover,
+aside > div > a:focus-visible{
+  background: var(--forest);
+  color: var(--ivory);
+  transform: translateY(-2px);
+}
+
+/* Filter / category chips inside list items */
+aside li a{
+  display: inline-block;
+  border: 1.5px solid var(--gold);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  margin: 0.2rem 0.3rem 0.2rem 0;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--forest);
+}
+aside li a:hover{ background: var(--gold); color: var(--ivory); }
+aside ul{ list-style: none; padding: 0; margin: 0; }
+
+/* Plain inline links (phone, email, whatsapp, instagram…) */
+main p a, aside p a{
+  color: var(--forest);
+  font-weight: 600;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
+}
+
+/* Standard <button> elements — form submits, subscribe */
+button{
+  font-family: var(--font-body);
+  cursor: pointer;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+}
+main button[type="submit"]{
+  display: block;
+  width: 100%;
+  max-width: 22rem;
+  margin-top: 1.75rem;
+  padding: 1rem 2rem;
+  background: var(--gold);
+  color: var(--plum-deep);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 10px 22px -10px rgba(198,149,47,0.7);
+}
+main button[type="submit"]:hover,
+main button[type="submit"]:focus-visible{
+  background: var(--forest);
+  color: var(--ivory);
+  transform: translateY(-2px);
+}
+aside button[type="button"],
+aside button[type="submit"]{
+  padding: 0.7rem 1.3rem;
+  background: var(--forest);
+  color: var(--ivory);
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+aside button[type="button"]:hover,
+aside button[type="submit"]:hover{ background: var(--gold); color: var(--plum-deep); }
+
+/* -------------------------------------------------------------------------
+   9. Forms
+   ------------------------------------------------------------------------- */
+form{ max-width: 34rem; }
+label{
+  display: block;
+  margin: 1.1rem 0 0.35rem;
+  font-weight: 600;
+  color: var(--plum-mid);
+  font-size: 0.92rem;
+}
+form label:first-of-type{ margin-top: 0; }
+
+input, select, textarea{
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--ivory);
+  border: 1.5px solid var(--plum-mid);
+  border-radius: 6px;
+  padding: 0.7rem 0.9rem;
+}
+textarea{ resize: vertical; min-height: 7rem; }
+input:focus, select:focus, textarea:focus{
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(198,149,47,0.28);
+}
+select{
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23C6952F' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+input[type="file"]{
+  border-style: dashed;
+  background: var(--ivory-dim);
+  padding: 0.9rem;
+}
+
+fieldset{
+  border: 1.5px dashed var(--gold);
+  border-radius: 10px;
+  padding: 0.5rem 1.5rem 1.5rem;
+  margin: 0 0 1.75rem;
+}
+legend{
+  font-family: var(--font-display);
+  color: var(--forest);
+  font-weight: 600;
+  font-size: 1.15rem;
+  padding: 0 0.6rem;
+}
+
+/* -------------------------------------------------------------------------
+   10. Aside cards
+   ------------------------------------------------------------------------- */
+aside > div{
+  background: var(--ivory);
+  border: 1.5px dashed var(--gold);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 6px 6px 0 var(--forest);
+  transform: rotate(-0.6deg);
+  transition: transform 0.25s ease;
+}
+aside > div:nth-child(even){
+  transform: rotate(0.6deg);
+  box-shadow: 6px 6px 0 var(--blush);
+}
+aside > div:hover{ transform: rotate(0deg); }
+aside h3{
+  color: var(--forest);
+  border-bottom: 2px dotted var(--gold-light);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+aside p{ font-size: 0.95rem; margin-bottom: 0.6rem; }
+aside input[type="email"]{ margin-bottom: 0.6rem; }
+
+/* -------------------------------------------------------------------------
+   11. Footer
+   ------------------------------------------------------------------------- */
+footer{
+  background: var(--plum-deep);
+  color: var(--ivory-dim);
+  text-align: center;
+  padding: 2rem 1.5rem;
+  border-top: 3px double var(--gold);
+  font-size: 0.9rem;
+}
+footer p{ margin: 0.25em auto; max-width: none; }
+
+/* -------------------------------------------------------------------------
+   12. Responsive
+   ------------------------------------------------------------------------- */
+@media (max-width: 900px){
+  .layout{ grid-template-columns: 1fr; }
+  aside{ position: static; }
+}
+
+@media (max-width: 700px){
+  main section:has(img),
+  main section:has(iframe){
+    grid-template-columns: 1fr;
+  }
+  main section:has(img):nth-of-type(even) > div:first-child{ order: 0; }
+  nav{ justify-content: center; text-align: center; }
+  nav ul{ justify-content: center; }
+  main > section:first-of-type{ padding: 1.75rem; }
+}
+
+/* -------------------------------------------------------------------------
+   13. Accessibility & motion
+   ------------------------------------------------------------------------- */
+:focus-visible{
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *, *::before, *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   14. Part 3 additions
+   14a. Wide sections (override the Part 2 "centred statement" and
+        image-pair rules for sections that hold tools, grids or forms)
+   14b. Entrance moment
+   14c. Catalogue: toolbar, chips, cards
+   14d. Dialogs: quick view and lightbox
+   14e. Tabs and accordion
+   14f. Gallery
+   14g. Forms: errors, status, result panels
+   14h. Map and locations
+   14i. Footer links and small utilities
+   ------------------------------------------------------------------------- */
+
+/* 14a. Wide sections -------------------------------------------------------
+   Part 2 centres any section without an image and splits any section with one
+   into two columns. A class (specificity 0,1,x) beats those element rules. */
+main section.wide{
+  display: block;
+  text-align: left;
+}
+main section.wide > *{
+  max-width: none;
+  margin-left: 0;
+  margin-right: 0;
+}
+main section.wide p{ font-size: 1rem; color: var(--ink); }
+main section.wide > h2{ margin-bottom: 1rem; }
+main section.wide > p{ max-width: 62ch; }
+main section.wide > .accordion{ max-width: 46rem; }
+main section.wide .result-line p,
+main section.wide .empty-state{ font-size: 0.95rem; color: var(--plum-mid); }
+main section.wide .map-tools p{ font-size: 0.95rem; }
+
+/* 14b. Entrance moment -----------------------------------------------------
+   One deliberate piece of non-interactive motion: the banner photograph on
+   each page settles into its frame, as if a toy were being set down. */
+@keyframes settle{
+  from{ opacity: 0; transform: translateY(14px) rotate(-1.4deg); }
+  to{ opacity: 1; transform: none; }
+}
+main > section:first-of-type > div:has(> img){
+  animation: settle 0.8s cubic-bezier(.2,.7,.2,1) both;
+}
+
+/* 14c. Catalogue ----------------------------------------------------------- */
+.toolbar{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.toolbar .field{ min-width: 12rem; }
+.toolbar label{ margin: 0 0 0.35rem; }
+.chips{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.chip{
+  background: var(--ivory);
+  color: var(--forest);
+  border: 1.5px solid var(--gold);
+  padding: 0.5rem 1.1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.chip:hover{ background: var(--ivory-dim); }
+.chip[aria-pressed="true"]{ background: var(--forest); border-color: var(--forest); color: var(--ivory); }
+aside li a[aria-current="true"]{ background: var(--forest); border-color: var(--forest); color: var(--ivory); }
+
+.result-line{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+  color: var(--plum-mid);
+  font-size: 0.95rem;
+}
+.result-line p{ margin: 0; font-size: 0.95rem; }
+.link-button{
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--forest);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
+  border-radius: 2px;
+}
+.link-button:hover{ color: var(--plum-deep); }
+aside ul.plain{ list-style: none; padding: 0; margin: 0; }
+aside ul.plain li{ margin: 0.35rem 0; }
+
+.product-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.75rem;
+}
+.product-card{
+  display: flex;
+  flex-direction: column;
+  background: var(--ivory);
+  border: 1.5px dashed var(--gold);
+  border-radius: var(--radius);
+  padding: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product-card:hover{
+  transform: translateY(-3px);
+  box-shadow: 6px 6px 0 var(--blush);
+}
+.product-media{ border-radius: 2px; overflow: hidden; background: var(--ivory-dim); }
+.product-media img{ aspect-ratio: 1; object-fit: cover; }
+.product-placeholder{
+  aspect-ratio: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.25rem;
+  background: linear-gradient(150deg, var(--plum-deep), var(--forest-deep));
+  color: var(--gold-light);
+}
+.product-placeholder span{ font-family: var(--font-display); font-size: 4rem; line-height: 1; }
+.product-placeholder small{ font-size: 0.8rem; color: var(--ivory-dim); }
+.product-body{ display: flex; flex-direction: column; flex: 1; padding: 0.9rem 0.4rem 0.4rem; }
+.product-body h3{ font-size: 1.2rem; margin: 0.5rem 0 0.15rem; }
+.product-price{ margin: 0; font-weight: 700; color: var(--gold-dark); font-size: 1.05rem; }
+main section.wide .product-price{ color: var(--gold-dark); font-size: 1.05rem; }
+.product-note{ margin: 0 0 0.5rem; font-size: 0.85rem; color: var(--plum-mid); }
+main section.wide .product-note{ font-size: 0.85rem; color: var(--plum-mid); }
+.product-summary{ font-size: 0.95rem; flex: 1; }
+main section.wide .product-summary{ font-size: 0.95rem; }
+.product-actions{ display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 0.25rem; }
+
+.badge{
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.15rem 0.7rem;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+}
+.badge-standard{ color: var(--forest); }
+.badge-custom{ color: var(--plum-mid); }
+.badge-limited{ color: var(--gold-dark); }
+
+.btn-quiet{
+  background: transparent;
+  color: var(--forest);
+  border: 1.5px solid var(--gold);
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.btn-quiet:hover{ background: var(--gold); color: var(--plum-deep); }
+.card-link{ font-weight: 600; color: var(--forest); text-underline-offset: 3px; }
+.empty-state{ grid-column: 1 / -1; padding: 2rem 0; color: var(--plum-mid); }
+
+/* Same pill used by links that act as buttons inside results and dialogs */
+.cta{
+  display: inline-block;
+  padding: 0.8rem 1.7rem;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--plum-deep);
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.cta:hover, .cta:focus-visible{ background: var(--forest); color: var(--ivory); transform: translateY(-2px); }
+
+input[type="range"]{
+  padding: 0;
+  border: 0;
+  background: transparent;
+  accent-color: var(--gold-dark);
+  height: 1.6rem;
+}
+aside output{ font-weight: 700; color: var(--forest); }
+
+/* 14d. Dialogs ------------------------------------------------------------- */
+dialog{
+  border: 2px dashed var(--gold);
+  border-radius: var(--radius);
+  background: var(--ivory);
+  color: var(--ink);
+  padding: 1.5rem;
+  width: min(54rem, 92vw);
+  max-height: 90vh;
+  box-shadow: 10px 10px 0 var(--forest);
+}
+dialog::backdrop{ background: rgba(43, 26, 50, 0.78); }
+dialog[open]{ animation: dialog-in 0.25s ease-out; }
+@keyframes dialog-in{
+  from{ opacity: 0; transform: translateY(10px) scale(0.98); }
+  to{ opacity: 1; transform: none; }
+}
+.modal-close, .lb-close{
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  line-height: 1;
+  background: var(--plum-deep);
+  color: var(--ivory);
+}
+.modal-close:hover, .lb-close:hover{ background: var(--gold); color: var(--plum-deep); }
+.modal-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: center;
+}
+.modal-grid h2{ margin: 0.6rem 0 0.25rem; }
+.modal-media{ border-radius: 2px; overflow: hidden; }
+.modal-media img{ aspect-ratio: 1; object-fit: cover; }
+.modal-grid ul{ padding-left: 1.2rem; margin: 0 0 1.25rem; }
+
+.lightbox{
+  width: min(64rem, 96vw);
+  background: var(--plum-deep);
+  color: var(--ivory);
+  border-color: var(--gold-light);
+  box-shadow: none;
+  text-align: center;
+}
+.lightbox figure{ margin: 0; }
+.lightbox img{ max-height: 70vh; width: auto; margin: 0 auto; border-radius: 2px; }
+.lightbox figcaption{ margin-top: 0.9rem; font-family: var(--font-display); font-size: 1.1rem; }
+.lb-count{ margin: 0.25rem auto 0; font-size: 0.85rem; color: var(--ivory-dim); }
+.lb-prev, .lb-next{
+  position: absolute;
+  top: 40%;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  background: rgba(251, 245, 236, 0.92);
+  color: var(--plum-deep);
+}
+.lb-prev{ left: 0.75rem; }
+.lb-next{ right: 0.75rem; }
+.lb-prev:hover, .lb-next:hover{ background: var(--gold); }
+
+/* 14e. Tabs and accordion --------------------------------------------------- */
+[role="tablist"]{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  border-bottom: 2px solid var(--gold);
+}
+[role="tab"]{
+  background: transparent;
+  color: var(--plum-mid);
+  border-radius: var(--radius) var(--radius) 0 0;
+  padding: 0.7rem 1.4rem;
+  font-weight: 600;
+  border: 1.5px dashed transparent;
+  border-bottom: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+[role="tab"]:hover{ background: var(--ivory-dim); }
+[role="tab"][aria-selected="true"]{
+  background: var(--forest);
+  color: var(--ivory);
+}
+[role="tabpanel"]{
+  padding: 1.25rem 0.25rem 0;
+}
+[role="tabpanel"]:not([hidden]){ animation: dialog-in 0.25s ease-out; }
+[role="tabpanel"] ul{ padding-left: 1.2rem; margin: 0 0 1em; }
+
+.accordion{ max-width: 46rem; }
+.accordion-item{ border-bottom: 2px dashed var(--gold-light); }
+.accordion-item h3{ margin: 0; font-size: 1rem; }
+.accordion-trigger{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  background: transparent;
+  color: var(--plum-deep);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 1rem 0.25rem;
+  border-radius: 0;
+}
+.accordion-trigger:hover{ color: var(--forest); }
+.accordion-icon{
+  flex: none;
+  width: 0.9rem;
+  height: 0.9rem;
+  position: relative;
+}
+.accordion-icon::before, .accordion-icon::after{
+  content: "";
+  position: absolute;
+  background: var(--gold-dark);
+  transition: transform 0.25s ease;
+}
+.accordion-icon::before{ left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; }
+.accordion-icon::after{ top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; }
+.accordion-trigger[aria-expanded="true"] .accordion-icon::after{ transform: scaleY(0); }
+.accordion-panel{
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+.accordion-panel.is-open{ grid-template-rows: 1fr; }
+.accordion-panel > div{ overflow: hidden; padding: 0 0.25rem; }
+.accordion-panel p{ margin: 0 0 1rem; }
+
+/* 14f. Gallery -------------------------------------------------------------- */
+.gallery-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+}
+.gallery-item{
+  display: block;
+  width: 100%;
+  padding: 6px;
+  background: var(--ivory);
+  border: 1.5px dashed var(--gold);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gallery-item:hover{ transform: translateY(-3px) rotate(-0.6deg); box-shadow: 5px 5px 0 var(--forest); }
+.gallery-item img{ aspect-ratio: 1; object-fit: cover; border-radius: 2px; }
+
+/* 14g. Forms: errors, status, result panels ---------------------------------- */
+.field-error{
+  margin: 0.35rem 0 0;
+  min-height: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #9B1C31;
+}
+.field-error:empty{ display: none; }
+input.is-invalid, select.is-invalid, textarea.is-invalid{
+  border-color: #9B1C31;
+  background-color: #FFF5F6;
+}
+.char-count{ margin: 0.25rem 0 0; font-size: 0.82rem; color: var(--plum-mid); text-align: right; }
+.hint{ margin: 0.3rem 0 0; font-size: 0.85rem; color: var(--plum-mid); }
+
+.form-status{ margin: 1rem 0 0; font-weight: 600; max-width: none; }
+.form-status:empty{ display: none; }
+.form-status.is-error{ color: #9B1C31; }
+.form-status.is-success{ color: var(--forest); }
+aside .form-status{ font-size: 0.9rem; margin-top: 0.6rem; }
+
+main button[type="submit"]:disabled, aside button[type="submit"]:disabled{ opacity: 0.6; cursor: progress; }
+
+/* Honeypot field: off-screen, ignored by people, filled in by bots */
+.hp{ position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.result-panel{
+  max-width: 40rem;
+  padding: 1.75rem;
+  background: var(--ivory);
+  border: 2px dashed var(--gold);
+  border-radius: var(--radius);
+  box-shadow: 8px 8px 0 var(--forest);
+}
+.result-panel:focus{ outline: none; }
+.result-panel:focus-visible{ outline: 3px solid var(--gold); outline-offset: 4px; }
+.result-panel h3{ font-size: 1.35rem; }
+.result-list{ margin: 1rem 0; }
+.result-list dt{ font-weight: 700; color: var(--forest); margin-top: 0.75rem; }
+.result-list dd{ margin: 0.1rem 0 0; }
+.result-list dd.preformatted{ white-space: pre-wrap; background: var(--ivory-dim); padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.95rem; }
+.result-actions{ display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.25rem; }
+.demo-note{ padding: 0.6rem 0.9rem; background: var(--ivory-dim); border-left: 4px solid var(--gold); font-size: 0.92rem; }
+.fine-print{ font-size: 0.85rem; color: var(--plum-mid); }
+
+/* 14h. Map and locations ----------------------------------------------------- */
+.map-frame{
+  background: var(--ivory);
+  border: 2px dashed var(--gold);
+  border-radius: var(--radius);
+  padding: 12px;
+  box-shadow: 9px 9px 0 var(--forest);
+  margin: 1rem 0 1.75rem;
+}
+#map{ height: 24rem; border-radius: 2px; background: var(--ivory-dim); }
+#map.map-failed{ display: grid; place-content: center; padding: 1.5rem; text-align: center; height: auto; min-height: 8rem; }
+.map-tools{ display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-bottom: 0.5rem; }
+.map-tools p{ margin: 0; }
+.location-grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1.75rem; }
+.location-card{
+  padding: 1.25rem 1.4rem;
+  border: 1.5px dashed var(--gold);
+  border-radius: var(--radius);
+  background: var(--ivory);
+}
+.location-card h3{ font-size: 1.15rem; color: var(--forest); }
+.location-card address{ font-style: normal; margin-bottom: 0.75rem; }
+.location-card p{ margin-bottom: 0.4rem; }
+.map-popup strong{ font-family: var(--font-display); color: var(--plum-deep); }
+.map-popup p{ margin: 0.3rem 0; max-width: 16rem; }
+
+/* Stitched-pin marker (replaces Leaflet's default image marker) */
+.store-pin span{
+  display: block;
+  width: 30px;
+  height: 30px;
+  background: var(--gold);
+  border: 3px solid var(--plum-deep);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: 3px 3px 0 var(--forest);
+}
+.store-pin span::after{
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: 7px;
+  background: var(--plum-deep);
+  border-radius: 50%;
+}
+
+/* 14i. Footer links and utilities -------------------------------------------- */
+footer nav{
+  position: static;
+  background: transparent;
+  border: 0;
+  padding: 0 0 0.75rem;
+  justify-content: center;
+}
+footer nav ul{ justify-content: center; }
+footer nav a{ color: var(--gold-light); font-size: 0.9rem; font-weight: 500; letter-spacing: 0; }
+footer nav a[aria-current="page"]{ color: var(--ivory); }
+footer nav a:hover{ color: var(--ivory); }
+
+.not-found{ text-align: center; }
+
+/* Part 3 responsive */
+@media (max-width: 700px){
+  .modal-grid{ grid-template-columns: 1fr; }
+  .toolbar .field{ min-width: 100%; }
+  #map{ height: 18rem; }
+  .lb-prev, .lb-next{ top: auto; bottom: 4.2rem; }
+}
+
+/* Reduced motion: keep every state change, drop the movement */
+@media (prefers-reduced-motion: reduce){
+  main > section:first-of-type > div:has(> img),
+  dialog[open],
+  [role="tabpanel"]:not([hidden]){ animation: none; }
+  .accordion-panel{ transition: none; }
+}
+
+/* Text for screen readers only (the newsletter box has no visible label) */
+.visually-hidden{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,7 @@
+# Des-Lux Play: tells search engines what they may crawl
+User-agent: *
+Allow: /
+Disallow: /docs/
+Disallow: /404.html
+
+Sitemap: https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/sitemap.xml

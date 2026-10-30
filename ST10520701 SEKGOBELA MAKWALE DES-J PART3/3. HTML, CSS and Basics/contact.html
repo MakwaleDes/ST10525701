@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<!--
+    ============================================================
+    DES-LUX PLAY  |  contact.html  (Contact page)
+    ------------------------------------------------------------
+    Purpose : General contact form with validation, plus an
+              interactive Leaflet map of both store locations.
+    Author  : Des-J Sekgobela
+    Updated : October 2026 (Part 3)
+    ============================================================
+-->
+<html lang="en-ZA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ===== SEO: unique title (under 60 characters) and description (under 160) per page ===== -->
+    <title>Contact & Store Locations | Des-Lux Play</title>
+    <meta name="description" content="Contact Des-Lux Play or visit our Burgersfort headquarters and Polokwane pop-up store. Find opening hours, phone numbers and an interactive map.">
+    <meta name="keywords" content="contact Des-Lux Play, toy store Burgersfort, toy shop Polokwane, Savannah Mall pop-up store, Limpopo plush toys">
+    <meta name="author" content="Des-J Sekgobela">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/contact.html">
+
+    <!-- Open Graph and Twitter cards: the preview shown when the page is shared on social media -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Des-Lux Play">
+    <meta property="og:locale" content="en_ZA">
+    <meta property="og:title" content="Contact & Store Locations | Des-Lux Play">
+    <meta property="og:description" content="Contact Des-Lux Play or visit our Burgersfort headquarters and Polokwane pop-up store. Find opening hours, phone numbers and an interactive map.">
+    <meta property="og:url" content="https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/contact.html">
+    <meta property="og:image" content="https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/images/luxury-handmade-stuffed-toys-hero.webp">
+    <meta property="og:image:alt" content="Luxury stuffed toys arranged on a velvet surface">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- ===== Security: only the listed sources may load scripts, styles, images and send data ===== -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' https://fonts.googleapis.com https://unpkg.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://*.tile.openstreetmap.org https://unpkg.com; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io; frame-src 'none'">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <meta name="theme-color" content="#2B1A32">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+
+    <!-- ===== Speed: connect to the font host early, then load fonts without blocking text ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Leaflet map library (version pinned, integrity hash checked by the browser) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+    <!-- Structured data (schema.org) so search engines understand the business -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Store",
+      "name": "Des-Lux Play, Burgersfort",
+      "image": "https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/images/luxury-handmade-stuffed-toys-hero.webp",
+      "url": "https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/contact.html",
+      "telephone": "+27123456789",
+      "email": "info@desluxplay.co.za",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "45 Platinum Street",
+        "addressLocality": "Burgersfort",
+        "postalCode": "1150",
+        "addressRegion": "Limpopo",
+        "addressCountry": "ZA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -24.6706,
+        "longitude": 30.3253
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "08:00",
+          "closes": "17:00"
+        }
+      ]
+    },
+    {
+      "@type": "Store",
+      "name": "Des-Lux Play, Polokwane",
+      "image": "https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/images/luxury-handmade-stuffed-toys-hero.webp",
+      "url": "https://makwaledes.github.io/ST10525701-SEKGOBELA-MAKWALE-DES-J-Part-2/contact.html",
+      "telephone": "+27159876543",
+      "email": "polokwane@desluxplay.co.za",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shop 12, Savannah Mall",
+        "addressLocality": "Groblersdal Road",
+        "postalCode": "0699",
+        "addressRegion": "Limpopo",
+        "addressCountry": "ZA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -23.9045,
+        "longitude": 29.4689
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"
+          ],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ]
+    }
+  ]
+}
+    </script>
+</head>
+<body>
+
+    <!-- Keyboard shortcut: lets keyboard users jump past the nav straight to the content -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ========== SITE HEADER : logo and brand name ========== -->
+    <header>
+        <div>
+            <a href="index.html">
+                <img src="images/des-lux-play-logo.webp" alt="Des-Lux Play logo, go to the home page" width="500" height="209">
+            </a>
+            <div class="site-title">Des-Lux Play</div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN NAVIGATION ==========
+         aria-current="page" marks the link for the page you are already on.
+         The search box is a real GET form: without JavaScript it opens
+         products.html?q=your+words; on the products page it filters live.
+    -->
+    <nav aria-label="Main">
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="products.html">PRODUCTS</a></li>
+            <li><a href="about.html">ABOUT</a></li>
+            <li><a href="enquiry.html">ENQUIRY</a></li>
+            <li><a href="contact.html" aria-current="page">CONTACT</a></li>
+        </ul>
+
+        <form class="site-search" role="search" action="products.html" method="get">
+            <input type="search" id="site-search" name="q" placeholder="Search toys..." aria-label="Search the toy catalogue" maxlength="60">
+            <button type="submit">Search</button>
+        </form>
+    </nav>
+
+    <!-- ========== PAGE BODY (main + aside grid) ========== -->
+    <div class="layout">
+
+        <main id="main-content">
+
+            <!-- ---------- PAGE BANNER ---------- -->
+            <section>
+                <h1>Get in Touch</h1>
+                <p>We would love to hear from you. Send us a message or visit one of our locations.</p>
+            </section>
+
+            <!-- ---------- GENERAL CONTACT FORM ----------
+                 Validated by js/forms.js. After a valid submission the form is
+                 replaced by #contact-result: the compiled e-mail (to, subject,
+                 message) with a button that opens the visitor's e-mail app.
+            -->
+            <section>
+                <h2>Send Us a Message</h2>
+
+                <div id="contact-result" class="result-panel" tabindex="-1" role="region" aria-labelledby="contact-result-title" hidden></div>
+
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contactForm">
+                    <input type="hidden" name="form_name" value="contact">
+                    <input type="hidden" name="_subject" value="New message from the Des-Lux Play website">
+
+                    <label for="con-name">Your Name:</label>
+                    <input type="text" id="con-name" name="name" required minlength="2" maxlength="60" data-validate="name" autocomplete="name" placeholder="Your full name">
+
+                    <label for="con-email">Your Email:</label>
+                    <input type="email" id="con-email" name="email" required maxlength="100" data-validate="email" autocomplete="email" placeholder="your@email.com">
+
+                    <label for="con-phone">Phone Number (optional):</label>
+                    <input type="tel" id="con-phone" name="phone" data-validate="phone" autocomplete="tel" inputmode="tel" placeholder="082 123 4567">
+
+                    <!-- Routes the message to the right inbox internally -->
+                    <label for="con-type">Message Type:</label>
+                    <select id="con-type" name="message_type" required>
+                        <option value="">-- Select type --</option>
+                        <option value="general">General Question</option>
+                        <option value="feedback">Feedback</option>
+                        <option value="partnership">Partnership / Collaboration</option>
+                        <option value="press">Press / Media</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                    <label for="con-message">Your Message:</label>
+                    <textarea id="con-message" name="message" rows="6" required minlength="10" maxlength="1000" placeholder="Type your message here..."></textarea>
+
+                    <!-- Honeypot: hidden from people, bots fill it in and are ignored -->
+                    <div class="hp" aria-hidden="true"><label for="con-hp">Leave this empty</label><input type="text" id="con-hp" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+
+                    <button type="submit">Send Message</button>
+                    <p class="form-status" role="status" aria-live="polite"></p>
+                </form>
+            </section>
+
+            <!-- ---------- FIND US : interactive map ----------
+                 js/map.js reads the data-lat / data-lng of each location card
+                 below, so the cards and the map markers always match.
+            -->
+            <section class="wide" aria-labelledby="map-title">
+                <h2 id="map-title">Find Us</h2>
+                <p>Visit our headquarters in Burgersfort or our pop-up store in Polokwane. Select a marker for the address.</p>
+
+                <div class="map-tools">
+                    <button type="button" class="btn-quiet" id="find-nearest">Find my nearest store</button>
+                    <p id="nearest-result" role="status" aria-live="polite"></p>
+                </div>
+
+                <div class="map-frame">
+                    <div id="map" role="region" aria-label="Interactive map of the Des-Lux Play stores">
+                        <noscript><p>The interactive map needs JavaScript. Use the Google Maps links below instead.</p></noscript>
+                    </div>
+                </div>
+
+                <div class="location-grid">
+                    <article class="location-card" id="store-burgersfort" data-store data-name="Headquarters, Burgersfort" data-lat="-24.6706" data-lng="30.3253">
+                        <h3>Headquarters, Burgersfort</h3>
+                        <!-- <address> is the correct element for contact details -->
+                        <address>
+                            45 Platinum Street<br>
+                            Burgersfort, 1150<br>
+                            Limpopo, South Africa
+                        </address>
+                        <p><strong>Phone:</strong> <a href="tel:+27123456789">012 345 6789</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:info@desluxplay.co.za">info@desluxplay.co.za</a></p>
+                        <p><strong>Hours:</strong> Mon &ndash; Fri, 08:00 &ndash; 17:00</p>
+                        <div class="product-actions">
+                            <button type="button" class="btn-quiet" data-show-on-map="store-burgersfort">Show on map</button>
+                            <a class="card-link map-link" href="https://www.google.com/maps/search/?api=1&amp;query=-24.6706,30.3253" target="_blank" rel="noopener">Open in Google Maps</a>
+                        </div>
+                    </article>
+                    <article class="location-card" id="store-polokwane" data-store data-name="Pop-up Store, Polokwane" data-lat="-23.9045" data-lng="29.4689">
+                        <h3>Pop-up Store, Polokwane</h3>
+                        <!-- <address> is the correct element for contact details -->
+                        <address>
+                            Shop 12, Savannah Mall<br>
+                            Groblersdal Road<br>
+                            Polokwane, 0699<br>
+                            Limpopo, South Africa
+                        </address>
+                        <p><strong>Phone:</strong> <a href="tel:+27159876543">015 987 6543</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:polokwane@desluxplay.co.za">polokwane@desluxplay.co.za</a></p>
+                        <p><strong>Hours:</strong> Mon &ndash; Sat, 09:00 &ndash; 18:00</p>
+                        <div class="product-actions">
+                            <button type="button" class="btn-quiet" data-show-on-map="store-polokwane">Show on map</button>
+                            <a class="card-link map-link" href="https://www.google.com/maps/search/?api=1&amp;query=-23.9045,29.4689" target="_blank" rel="noopener">Open in Google Maps</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <!-- ========== SIDEBAR : fast routes to a human ========== -->
+        <aside>
+            <!-- External links open in a new tab; rel="noopener" is a security safeguard -->
+            <div>
+                <h3>Quick Contact</h3>
+                <p><strong>WhatsApp:</strong> <a href="https://wa.me/27123456789" target="_blank" rel="noopener">Click to Chat</a></p>
+                <p><strong>Instagram:</strong> <a href="https://instagram.com/desluxplay" target="_blank" rel="noopener">@desluxplay</a></p>
+            </div>
+            <div>
+                <h3>Business Hours</h3>
+                <p><strong>Burgersfort:</strong><br>Mon &ndash; Fri: 08:00 &ndash; 17:00</p>
+                <p><strong>Polokwane:</strong><br>Mon &ndash; Sat: 09:00 &ndash; 18:00</p>
+            </div>
+            <div>
+                <h3>Customer Support</h3>
+                <p>Response time: 24&ndash;48 hours</p>
+                <p>For urgent orders, please WhatsApp us directly.</p>
+                <p>Want a custom toy? <a href="enquiry.html">Send an enquiry</a>.</p>
+            </div>
+        </aside>
+    </div>
+
+
+    <!-- ========== SITE FOOTER : repeated on every page ========== -->
+    <footer>
+        <nav aria-label="Footer">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="enquiry.html">Enquiry</a></li>
+                <li><a href="contact.html" aria-current="page">Contact</a></li>
+                <li><a href="https://instagram.com/desluxplay" target="_blank" rel="noopener">Instagram</a></li>
+            </ul>
+        </nav>
+        <p>&copy; 2026 Des-Lux Play. All rights reserved.</p>
+        <p>Burgersfort, Limpopo, South Africa | Where Luxury Meets Imagination</p>
+    </footer>
+
+    <!-- ========== SCRIPTS: config first, then shared behaviour, then page-specific code ========== -->
+    <script src="js/config.js"></script>
+    <script src="js/site.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="js/map.js" defer></script>
+    <script src="js/forms.js" defer></script>
+
+</body>
+</html>
